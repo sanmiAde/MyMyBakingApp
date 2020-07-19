@@ -1,6 +1,8 @@
 package com.sanmidev.mybakingapp
 
 import com.sanmidev.mybakingapp.data.remote.BakingService
+import com.sanmidev.mybakingapp.data.remote.mapper.BakingRecipeItemModelToEntityMapper
+import com.sanmidev.mybakingapp.data.remote.mapper.BakingRecipeModelListToEntityListMapper
 import com.sanmidev.mybakingapp.data.remote.model.BakingRecipeItemModel
 import com.sanmidev.mybakingapp.data.remote.model.BakingRecipeModelList
 import com.squareup.moshi.Moshi
@@ -66,5 +68,14 @@ object NetworkUtils {
             }
 
         }
+    }
+
+    fun provideBakingRecipeItemModelToEntityMapper(): BakingRecipeItemModelToEntityMapper {
+        return BakingRecipeItemModelToEntityMapper()
+    }
+
+    fun provideBakingRecipeModelListToEntityListMapper(): BakingRecipeModelListToEntityListMapper {
+        val itemModelToEntityMapper = provideBakingRecipeItemModelToEntityMapper()
+        return BakingRecipeModelListToEntityListMapper(itemModelToEntityMapper)
     }
 }

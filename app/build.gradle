@@ -43,6 +43,10 @@ android {
 
     }
 
+    viewBinding {
+        enabled = true
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -175,4 +179,6 @@ dependencies {
     //Truth
     testImplementation "com.google.truth:truth:$truth_version"
     androidTestImplementation "com.google.truth:truth:$truth_version"
+
+    testImplementation 'com.jraska.livedata:testing-ktx:1.1.2'
 }
