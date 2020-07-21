@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.sanmidev.mybakingapp.R
 import com.sanmidev.mybakingapp.data.local.BakingRecipeItemEntity
 import com.sanmidev.mybakingapp.databinding.RecipeListItemBinding
 import com.sanmidev.mybakingapp.utils.GlideApp
@@ -24,7 +25,7 @@ class RecipeListAdapter(val context: Context, val recipeOnClickCallback: RecipeO
             GlideApp.with(context)
                 .load(bakingRecipeItemEntity.image)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .transform()
+                .error(R.drawable.cake)
                 .into(binding.imgRecipe)
 
         }

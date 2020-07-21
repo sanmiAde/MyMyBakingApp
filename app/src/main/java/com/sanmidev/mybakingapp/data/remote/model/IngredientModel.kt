@@ -11,5 +11,5 @@ data class IngredientModel(
     @Json(name = "measure")
     val measure: String, // CUP
     @Json(name = "quantity")
-    val quantity: Int // 2
+    val quantity: Double // 2
 )

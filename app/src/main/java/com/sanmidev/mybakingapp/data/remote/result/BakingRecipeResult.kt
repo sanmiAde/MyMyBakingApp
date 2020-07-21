@@ -6,7 +6,7 @@ sealed class BakingRecipeResult {
 
     object Loading : BakingRecipeResult()
 
-    class Success(val data: BakingRecipeEntityList) : BakingRecipeResult()
+    class Success(val bakingRecipeEntityList: BakingRecipeEntityList) : BakingRecipeResult()
 
     class Error(val message: String) : BakingRecipeResult()
 }

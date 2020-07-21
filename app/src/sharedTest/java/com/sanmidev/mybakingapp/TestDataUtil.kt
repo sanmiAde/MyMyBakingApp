@@ -34,7 +34,7 @@ object TestDataUtil {
 
         val ingredient = faker.food().ingredient()
         val measure = faker.food().measurement()
-        val quantity = faker.number().digits(2).toInt()
+        val quantity = faker.number().digits(2).toDouble()
 
         val ingredientModel = IngredientModel(ingredient, measure, quantity)
 

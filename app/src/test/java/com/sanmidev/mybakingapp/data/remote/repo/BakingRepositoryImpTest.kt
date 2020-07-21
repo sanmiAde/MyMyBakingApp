@@ -10,11 +10,7 @@ import com.sanmidev.mybakingapp.data.remote.mapper.BakingRecipeModelListToEntity
 import com.sanmidev.mybakingapp.data.remote.model.BakingRecipeModelList
 import com.sanmidev.mybakingapp.data.remote.result.BakingRecipeResult
 import com.sanmidev.mybakingapp.utils.TestSchedulers
-import com.sanmidev.mybakingapp.utils.applySchedulers
 import com.squareup.moshi.Moshi
-import io.reactivex.internal.schedulers.TrampolineScheduler
-import io.reactivex.rxjava3.schedulers.Schedulers
-import io.reactivex.rxjava3.schedulers.TestScheduler
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -24,12 +20,11 @@ import org.junit.Test
 
 import org.junit.Rule
 import java.net.HttpURLConnection
-import java.util.concurrent.TimeUnit
 
 class BakingRepositoryImpTest {
 
     @get:Rule
-    private val mockWebServer = MockWebServer()
+    val mockWebServer = MockWebServer()
 
     private lateinit var bakingService: BakingService
 
@@ -70,8 +65,6 @@ class BakingRepositoryImpTest {
         //GIVEN
         mockWebServer.dispatcher = dispatcher
 
-        val testScheduler = TestSchedulers()
-
         //WHEN
         val testObserver = CUT.getBakingRecipes().test().awaitCount(1)
 
@@ -79,7 +72,7 @@ class BakingRepositoryImpTest {
         testObserver.assertNoErrors()
         testObserver.assertComplete()
         val result = testObserver.values()[0] as BakingRecipeResult.Success
-        Truth.assertThat(result.data).isEqualTo(testData.second)
+        Truth.assertThat(result.bakingRecipeEntityList).isEqualTo(testData.second)
         testObserver.dispose()
     }
 
@@ -109,13 +102,13 @@ class BakingRepositoryImpTest {
         mockWebServer.dispatcher = dispatcher
 
         //WHEN
-        CUT.getBakingRecipes().test().awaitCount(1)
+        val testObserver = CUT.getBakingRecipes().test().awaitCount(1)
         val request = mockWebServer.takeRequest()
 
         //THEN
         Truth.assertThat("/baking.json").isEqualTo(request.path)
         Truth.assertThat("GET").isEqualTo(request.method)
-
+        testObserver.dispose()
 
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="recipe_img_width">130dp</dimen>
-    <dimen name="recipe_img_height">100dp</dimen>
+    <dimen name="recipe_img_width">200dp</dimen>
+    <dimen name="recipe_img_height">200dp</dimen>
+    <dimen name="card_elevation">10dp</dimen>
 </resources>

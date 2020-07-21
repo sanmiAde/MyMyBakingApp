@@ -7,6 +7,6 @@ import retrofit2.http.GET
 
 interface BakingService {
 
-    @GET("/baking.json")
+    @GET("baking.json")
     fun getBakingRecipes(): Single<Response<ResponseBody>>
 }

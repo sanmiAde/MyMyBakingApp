@@ -1,10 +1,8 @@
 package com.sanmidev.mybakingapp.feature.recipes
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import com.google.common.truth.Truth
 import com.jraska.livedata.test
-import com.nhaarman.mockito_kotlin.verify
 
 import com.sanmidev.mybakingapp.NetworkUtils
 import com.sanmidev.mybakingapp.RepositoriesFactories
@@ -22,9 +20,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 import java.net.HttpURLConnection
 
@@ -47,17 +42,12 @@ class RecipesViewModelTest {
 
     private lateinit var testData: Pair<BakingRecipeModelList, BakingRecipeEntityList>
 
-    @Mock
-    lateinit var observer: Observer<BakingRecipeResult>
-
     @Before
     fun setUp() {
         bakingRepo = RepositoriesFactories.provideBakingRecipeRepostor(mockWebServer)
         testSchedulers = RepositoriesFactories.provideTestSchedulers()
         testData = TestDataUtil.generateBakingRecipeListTestData()
         dispatcher = NetworkUtils.getBakingRecipeMockWebserverDispatcher(testData.first)
-
-
     }
 
     @After
@@ -70,26 +60,17 @@ class RecipesViewModelTest {
         //GIVEN
         mockWebServer.dispatcher = dispatcher
 
-        //THEN
+        //WHEN
         CUT = RecipesViewModel(bakingRepo, testSchedulers)
 
+        //THEN
+        val testObserver = CUT.recipesLivaData.test().awaitNextValue()
 
-        //WHEN
-        val testObserver = CUT.recipesLivaData.test()
-
-        testObserver.assertValue {
-            it::class.java == BakingRecipeResult.Loading::class.java
-        }
-
-        testObserver.awaitNextValue()
-        testObserver.assertValue {
-            it::class.java == BakingRecipeResult.Success::class.java
-        }
-
+        Truth.assertThat(testObserver.value()).isInstanceOf(BakingRecipeResult.Success::class.java)
 
         val value = testObserver.value() as BakingRecipeResult.Success
-        Truth.assertThat(value.data.data).containsExactlyElementsIn(testData.second.data)
-
+        Truth.assertThat(value.bakingRecipeEntityList.data)
+            .containsExactlyElementsIn(testData.second.data)
 
     }
 
@@ -108,16 +89,9 @@ class RecipesViewModelTest {
 
 
         //WHEN
-        val testObserver = CUT.recipesLivaData.test()
+        val testObserver = CUT.recipesLivaData.test().awaitNextValue()
 
-        testObserver.assertValue {
-            it::class.java == BakingRecipeResult.Loading::class.java
-        }
-
-        testObserver.awaitNextValue()
-        testObserver.assertValue {
-            it::class.java == BakingRecipeResult.Error::class.java
-        }
+        Truth.assertThat(testObserver.value()).isInstanceOf(BakingRecipeResult.Error::class.java)
 
 
         val value = testObserver.value() as BakingRecipeResult.Error

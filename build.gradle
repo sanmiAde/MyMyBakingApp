@@ -77,7 +77,7 @@ buildscript {
         truth_version = "1.0.1"
 
         //Decorator
-//        decorator_version = "1.2.0"
+//         decorator_version = "1.2.0"
 
         //Facebook shimmer
 //        facebook_shimmer_version = "0.5.0"

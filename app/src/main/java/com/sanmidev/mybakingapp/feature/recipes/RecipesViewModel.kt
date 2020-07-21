@@ -29,7 +29,6 @@ class RecipesViewModel(
         getRecipes()
     }
 
-
     private fun getRecipes() {
 
         bakingRepository.getBakingRecipes()

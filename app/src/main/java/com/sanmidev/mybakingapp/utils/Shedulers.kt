@@ -7,6 +7,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
 
 interface AppScheduler {
@@ -15,7 +16,7 @@ interface AppScheduler {
     fun Main(): Scheduler
 }
 
-class RxSchedulers : AppScheduler {
+class RxSchedulers @Inject constructor() : AppScheduler {
     override fun IO(): Scheduler {
         return Schedulers.io()
     }
@@ -26,7 +27,7 @@ class RxSchedulers : AppScheduler {
 }
 
 
-class TestSchedulers : AppScheduler {
+class TestSchedulers @Inject constructor() : AppScheduler {
     override fun IO(): Scheduler {
         return Schedulers.trampoline()
     }
