@@ -80,7 +80,7 @@ buildscript {
 //         decorator_version = "1.2.0"
 
         //Facebook shimmer
-//        facebook_shimmer_version = "0.5.0"
+        facebook_shimmer_version = "0.5.0"
 
         //LOttie
 //        lottie_version = "3.4.1"

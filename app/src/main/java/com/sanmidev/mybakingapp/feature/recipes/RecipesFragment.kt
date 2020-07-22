@@ -15,6 +15,7 @@ import com.sanmidev.mybakingapp.feature.MainActivity
 import com.sanmidev.mybakingapp.utils.MarginItemDecoration
 import com.sanmidev.mybakingapp.utils.fireToast
 import com.sanmidev.mybakingapp.utils.showIf
+import com.sanmidev.mybakingapp.utils.showShimmerIf
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -66,14 +67,16 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
     private fun observeGetRecipes() {
         viewModel.recipesLivaData.observe(viewLifecycleOwner) { result: BakingRecipeResult ->
-            binding.progressBar.showIf { result is BakingRecipeResult.Loading }
 
+            binding.shimmerFrameLayout.showShimmerIf { result is BakingRecipeResult.Loading }
+            binding.recyclerView.showIf { result is BakingRecipeResult.Success }
             when (result) {
                 is BakingRecipeResult.Success -> {
                     recipeAdapter?.submitList(result.bakingRecipeEntityList.data.toMutableList())
 
                 }
                 is BakingRecipeResult.Error -> {
+                    fireToast(requireContext(), result.message)
                     Timber.e(result.message)
 
                 }

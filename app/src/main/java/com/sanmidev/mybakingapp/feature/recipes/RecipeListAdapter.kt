@@ -22,7 +22,7 @@ class RecipeListAdapter(val context: Context, val recipeOnClickCallback: RecipeO
         fun bind(bakingRecipeItemEntity: BakingRecipeItemEntity) {
             binding.txtRecipeName.text = bakingRecipeItemEntity.name
 
-            GlideApp.with(context)
+            GlideApp.with(binding.imgRecipe.context)
                 .load(bakingRecipeItemEntity.image)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.cake)
