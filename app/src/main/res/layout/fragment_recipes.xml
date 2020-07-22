@@ -9,13 +9,14 @@
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmerFrameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/include">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,6 +31,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:orientation="horizontal">
 
                 <include layout="@layout/recipe_list_item_placeholder" />
@@ -41,6 +44,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:orientation="horizontal">
 
                 <include layout="@layout/recipe_list_item_placeholder" />
@@ -52,6 +57,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:orientation="horizontal">
 
                 <include layout="@layout/recipe_list_item_placeholder" />
@@ -59,38 +66,6 @@
                 <include layout="@layout/recipe_list_item_placeholder" />
             </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <include layout="@layout/recipe_list_item_placeholder" />
-
-                <include layout="@layout/recipe_list_item_placeholder" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <include layout="@layout/recipe_list_item_placeholder" />
-
-                <include layout="@layout/recipe_list_item_placeholder" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <include layout="@layout/recipe_list_item_placeholder" />
-
-                <include layout="@layout/recipe_list_item_placeholder" />
-            </LinearLayout>
 
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
@@ -105,5 +80,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/recipe_list_item" />
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar_layout" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
