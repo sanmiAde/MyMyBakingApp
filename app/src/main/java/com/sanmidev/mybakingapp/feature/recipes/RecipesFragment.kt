@@ -6,16 +6,14 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.sanmidev.mybakingapp.R
 import com.sanmidev.mybakingapp.data.local.BakingRecipeItemEntity
 import com.sanmidev.mybakingapp.data.remote.result.BakingRecipeResult
 import com.sanmidev.mybakingapp.databinding.FragmentRecipesBinding
 import com.sanmidev.mybakingapp.feature.MainActivity
-import com.sanmidev.mybakingapp.utils.MarginItemDecoration
-import com.sanmidev.mybakingapp.utils.fireToast
-import com.sanmidev.mybakingapp.utils.showIf
-import com.sanmidev.mybakingapp.utils.showShimmerIf
+import com.sanmidev.mybakingapp.utils.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -54,7 +52,13 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
         recipeAdapter =
             RecipeListAdapter(requireContext()) { bakingItemEntity: BakingRecipeItemEntity ->
+                val direction =
+                    RecipesFragmentDirections.actionRecipesFragmentToDetailFragment(
+                        bakingItemEntity
+                    )
+
                 Timber.d(bakingItemEntity.toString())
+                findNavController().navigateSafely(direction)
             }
 
         binding.recyclerView.apply {
@@ -72,6 +76,8 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
             binding.recyclerView.showIf { result is BakingRecipeResult.Success }
             when (result) {
                 is BakingRecipeResult.Success -> {
+                    binding.shimmerFrameLayout.gone()
+                    binding.shimmerFrameLayout.stopShimmer()
                     recipeAdapter?.submitList(result.bakingRecipeEntityList.data.toMutableList())
 
                 }
@@ -84,7 +90,4 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 }

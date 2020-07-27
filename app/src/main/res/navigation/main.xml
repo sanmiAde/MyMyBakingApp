@@ -9,5 +9,18 @@
         android:id="@+id/recipesFragment"
         android:name="com.sanmidev.mybakingapp.feature.recipes.RecipesFragment"
         android:label="fragment_recipes"
-        tools:layout="@layout/fragment_recipes" />
+        tools:layout="@layout/fragment_recipes">
+        <action
+            android:id="@+id/action_recipesFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.sanmidev.mybakingapp.feature.recipeDetail.DetailFragment"
+        android:label="DetailFragment">
+        <argument
+            android:name="recipeItem"
+            app:argType="com.sanmidev.mybakingapp.data.local.BakingRecipeItemEntity" />
+    </fragment>
+
 </navigation>

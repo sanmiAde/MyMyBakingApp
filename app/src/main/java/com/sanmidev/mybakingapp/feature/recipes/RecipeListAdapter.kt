@@ -32,13 +32,13 @@ class RecipeListAdapter(val context: Context, val recipeOnClickCallback: RecipeO
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflator = LayoutInflater.from(context)
-        val binding = RecipeListItemBinding.inflate(inflator)
+        val inflator = LayoutInflater.from(parent.context)
+        val binding = RecipeListItemBinding.inflate(inflator, parent, false)
 
         val viewHolder = ViewHolder(binding)
 
         binding.root.setOnClickListener {
-            recipeOnClickCallback(getItem(viewHolder.adapterPosition))
+            recipeOnClickCallback.invoke(getItem(viewHolder.adapterPosition))
         }
 
         return viewHolder
