@@ -45,7 +45,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
         initRecyclerView()
         observeGetRecipes()
-
+        binding.include.toolbar.title = getString(R.string.txt_recipes)
     }
 
     private fun initRecyclerView() {

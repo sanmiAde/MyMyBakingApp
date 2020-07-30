@@ -37,7 +37,7 @@ class RecipeListAdapter(val context: Context, val recipeOnClickCallback: RecipeO
 
         val viewHolder = ViewHolder(binding)
 
-        binding.root.setOnClickListener {
+        binding.materialCardView.setOnClickListener {
             recipeOnClickCallback.invoke(getItem(viewHolder.adapterPosition))
         }
 

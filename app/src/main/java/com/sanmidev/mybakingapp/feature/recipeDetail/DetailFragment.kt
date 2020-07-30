@@ -10,7 +10,7 @@ import com.sanmidev.mybakingapp.data.local.BakingRecipeItemEntity
 import com.sanmidev.mybakingapp.databinding.FragmentDetailBinding
 import com.sanmidev.mybakingapp.feature.recipeDetail.adapter.IngredientsAdapter
 import com.sanmidev.mybakingapp.feature.recipeDetail.adapter.StepsAdapter
-import timber.log.Timber
+import com.sanmidev.mybakingapp.utils.fireToast
 
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
@@ -38,25 +38,27 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
 
     private fun initRecyclerviews(recipeItem: BakingRecipeItemEntity) {
-        ingredientsAdapter = IngredientsAdapter()
 
         binding.rvIngredients.apply {
+            ingredientsAdapter = IngredientsAdapter()
+            ingredientsAdapter.addIngredients(recipeItem.ingredients)
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = ingredientsAdapter
-        }
-        ingredientsAdapter.addIngredients(recipeItem.ingredients)
 
-        stepsAdapter = StepsAdapter { Timber.d(it.description) }
+        }
 
         binding.rvSteps.apply {
+            stepsAdapter = StepsAdapter { fireToast(requireContext(), it.description) }
+            stepsAdapter.addSteps(recipeItem.steps)
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = stepsAdapter
 
         }
-        stepsAdapter.addSteps(recipeItem.steps)
     }
 
-
+    private fun initToolbar() {
+        //binding.
+    }
 }

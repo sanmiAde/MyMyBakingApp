@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.google.android.material.appbar.MaterialToolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?attr/actionBarSize"
     android:theme="?attr/actionBarTheme"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
+    android:background="@color/colorWhite"
+    android:elevation="4dp"
+    app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6"
     tools:showIn="@layout/fragment_recipes">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
-</androidx.appcompat.widget.Toolbar>
+</com.google.android.material.appbar.MaterialToolbar>

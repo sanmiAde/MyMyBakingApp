@@ -29,9 +29,9 @@ class StepsAdapter(val recipeStepOnClickListener: RecipeStepOnClickListener) :
 
         val viewHolder = ViewHolder(binding)
 
-        binding.root.setOnClickListener {
+        binding.materialCardView.setOnClickListener {
             val selectedStepEntity = recipeSteps.get(viewHolder.adapterPosition)
-            recipeStepOnClickListener(selectedStepEntity)
+            recipeStepOnClickListener.invoke(selectedStepEntity)
         }
 
         return viewHolder
