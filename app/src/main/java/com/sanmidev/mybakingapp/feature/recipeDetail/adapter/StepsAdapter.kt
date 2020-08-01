@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sanmidev.mybakingapp.data.local.StepEntity
 import com.sanmidev.mybakingapp.databinding.StepListItemBinding
+import kotlin.properties.Delegates
 
 
 typealias RecipeStepOnClickListener = (stepEntity: StepEntity) -> Unit
@@ -12,7 +13,9 @@ typealias RecipeStepOnClickListener = (stepEntity: StepEntity) -> Unit
 class StepsAdapter(val recipeStepOnClickListener: RecipeStepOnClickListener) :
     RecyclerView.Adapter<StepsAdapter.ViewHolder>() {
 
-    private val recipeSteps: MutableList<StepEntity> = mutableListOf()
+    var recipeSteps: List<StepEntity> by Delegates.observable(emptyList()) { property, oldValue, newValue ->
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(private val binding: StepListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -45,8 +48,4 @@ class StepsAdapter(val recipeStepOnClickListener: RecipeStepOnClickListener) :
         holder.bind(step)
     }
 
-    fun addSteps(steps: List<StepEntity>) {
-        recipeSteps.addAll(steps)
-        notifyDataSetChanged()
-    }
 }

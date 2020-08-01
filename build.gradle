@@ -76,6 +76,9 @@ buildscript {
         //truth
         truth_version = "1.0.1"
 
+        //ExoPlayer
+        exo_version = "2.11.5"
+
         //Decorator
 //         decorator_version = "1.2.0"
 

@@ -27,7 +27,6 @@ object NetworkUtils {
 
     }
 
-
     fun provideRetrofit(mockWebServer: MockWebServer): Retrofit {
         return Retrofit.Builder()
             .baseUrl(mockWebServer.url("/"))
@@ -52,8 +51,6 @@ object NetworkUtils {
                         )
                         val bakingRecipeJson =
                             moshi.adapter<BakingRecipeModelList>(listType).toJson(generatedData)
-
-
 
                         MockResponse().setBody(
                             bakingRecipeJson

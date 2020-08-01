@@ -6,4 +6,5 @@ import io.reactivex.rxjava3.core.Single
 interface BakingRepository {
 
     fun getBakingRecipes(): Single<BakingRecipeResult>
+
 }

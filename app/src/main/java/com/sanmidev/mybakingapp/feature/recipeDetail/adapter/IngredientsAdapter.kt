@@ -5,10 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sanmidev.mybakingapp.data.local.IngredientEntity
 import com.sanmidev.mybakingapp.databinding.IngredientListItemBinding
+import kotlin.properties.Delegates
 
 class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
-    private val ingredients: MutableList<IngredientEntity> = mutableListOf()
+    var ingredients: List<IngredientEntity> by Delegates.observable(emptyList()) { property, oldValue, newValue ->
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(private val binding: IngredientListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -38,8 +41,4 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>()
         holder.bind(ingredient)
     }
 
-    fun addIngredients(ingredientsList: List<IngredientEntity>) {
-        ingredients.addAll(ingredientsList)
-        notifyDataSetChanged()
-    }
 }

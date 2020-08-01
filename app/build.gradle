@@ -153,6 +153,11 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxandroid:$rx_android3_version"
     implementation "io.reactivex.rxjava3:rxkotlin:$rx_kotlin3_version"
 
+    //ExoPlayer
+    implementation "com.google.android.exoplayer:exoplayer-ui:$exo_version"
+    implementation "com.google.android.exoplayer:exoplayer-core:$exo_version"
+
+
     //test
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$junit_android_version"

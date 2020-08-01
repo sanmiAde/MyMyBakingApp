@@ -43,9 +43,10 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
         fragmentRecipesBinding = FragmentRecipesBinding.bind(view)
 
+        binding.include.toolbar.title = getString(R.string.txt_recipes)
+
         initRecyclerView()
         observeGetRecipes()
-        binding.include.toolbar.title = getString(R.string.txt_recipes)
     }
 
     private fun initRecyclerView() {
@@ -90,4 +91,8 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         }
     }
 
+    override fun onDestroyView() {
+        fragmentRecipesBinding = null
+        super.onDestroyView()
+    }
 }

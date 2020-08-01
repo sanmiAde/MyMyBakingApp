@@ -3,18 +3,20 @@ package com.sanmidev.mybakingapp.feature.recipeDetail
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sanmidev.mybakingapp.R
 import com.sanmidev.mybakingapp.data.local.BakingRecipeItemEntity
+import com.sanmidev.mybakingapp.data.local.StepEntity
 import com.sanmidev.mybakingapp.databinding.FragmentDetailBinding
 import com.sanmidev.mybakingapp.feature.recipeDetail.adapter.IngredientsAdapter
 import com.sanmidev.mybakingapp.feature.recipeDetail.adapter.StepsAdapter
-import com.sanmidev.mybakingapp.utils.fireToast
+import com.sanmidev.mybakingapp.utils.initToolbarButton
+import com.sanmidev.mybakingapp.utils.navigateSafely
 
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
-
 
     private lateinit var stepsAdapter: StepsAdapter
 
@@ -32,6 +34,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         super.onViewCreated(view, savedInstanceState)
 
         recipeDetailBinding = FragmentDetailBinding.bind(view)
+        binding.include.toolbar.title = args.recipeItem.name
+        initToolbarButton(requireActivity(), binding.include.toolbar)
         initRecyclerviews(args.recipeItem)
 
     }
@@ -41,7 +45,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
         binding.rvIngredients.apply {
             ingredientsAdapter = IngredientsAdapter()
-            ingredientsAdapter.addIngredients(recipeItem.ingredients)
+            ingredientsAdapter.ingredients = recipeItem.ingredients
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = ingredientsAdapter
@@ -49,8 +53,13 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
 
         binding.rvSteps.apply {
-            stepsAdapter = StepsAdapter { fireToast(requireContext(), it.description) }
-            stepsAdapter.addSteps(recipeItem.steps)
+            stepsAdapter = StepsAdapter { stepEntity: StepEntity ->
+                val direction =
+                    DetailFragmentDirections.actionDetailFragmentToStepFragment(stepEntity)
+
+                findNavController().navigateSafely(direction)
+            }
+            stepsAdapter.recipeSteps = recipeItem.steps
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = stepsAdapter
@@ -58,7 +67,4 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
     }
 
-    private fun initToolbar() {
-        //binding.
-    }
 }
