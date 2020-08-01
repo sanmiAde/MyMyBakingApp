@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">My Baking App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txt_ingredient_steps">Ingredients and Steps</string>
+    <string name="txt_recipes">Recipes</string>
+    <string name="step_txt">Step Description</string>
+    <string name="txt_step_desc">Step Description</string>
 </resources>

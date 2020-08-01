@@ -22,7 +22,25 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", '"https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/"'
         }
+
+        debug {
+            minifyEnabled false
+            debuggable = true
+            shrinkResources false
+            applicationIdSuffix = '.debug'
+            versionNameSuffix = '.debug'
+            buildConfigField "String", "BASE_URL", '"https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/"'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures{
+        dataBinding = true
+
     }
 
     viewBinding {
@@ -41,6 +59,16 @@ android {
     testOptions {
         unitTests {
             includeAndroidResources = true
+        }
+    }
+
+    sourceSets {
+        String sharedTestDir = 'src/sharedTest/java'
+        test {
+            java.srcDir sharedTestDir
+        }
+        androidTest {
+            java.srcDir sharedTestDir
         }
     }
 }
@@ -105,11 +133,12 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
+    implementation "com.facebook.shimmer:shimmer:$facebook_shimmer_version@aar"
 
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$moshi_converter_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$rx_java_adapter_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:$rx_java_adapter_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$retrofit_interceptor_version"
 
     //Moshi
@@ -120,18 +149,14 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timber_version"
 
     //rxjava
-    implementation "io.reactivex.rxjava2:rxjava:$rx_java2_version"
-    implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
-    implementation "io.reactivex.rxjava2:rxkotlin:$rx_kotlin2_version"
+    implementation"io.reactivex.rxjava3:rxjava:$rx_java3_version"
+    implementation "io.reactivex.rxjava3:rxandroid:$rx_android3_version"
+    implementation "io.reactivex.rxjava3:rxkotlin:$rx_kotlin3_version"
 
-    //LOTTIE
-    //implementation "com.airbnb.android:lottie:$lottie_version"
+    //ExoPlayer
+    implementation "com.google.android.exoplayer:exoplayer-ui:$exo_version"
+    implementation "com.google.android.exoplayer:exoplayer-core:$exo_version"
 
-    //Decorator
-    //implementation "io.cabriole:decorator:$decorator_version"
-
-    //FACEBOOK SHIMMER
-    //implementation "com.facebook.shimmer:shimmer:$facebook_shimmer_version"
 
     //test
     testImplementation "junit:junit:$junit_version"
@@ -159,4 +184,8 @@ dependencies {
     //Truth
     testImplementation "com.google.truth:truth:$truth_version"
     androidTestImplementation "com.google.truth:truth:$truth_version"
+
+    testImplementation 'com.jraska.livedata:testing-ktx:1.1.2'
+
+
 }

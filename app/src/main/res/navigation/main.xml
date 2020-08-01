@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main.xml"
+    app:startDestination="@id/recipesFragment">
+
+    <fragment
+        android:id="@+id/recipesFragment"
+        android:name="com.sanmidev.mybakingapp.feature.recipes.RecipesFragment"
+        android:label="fragment_recipes"
+        tools:layout="@layout/fragment_recipes">
+        <action
+            android:id="@+id/action_recipesFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.sanmidev.mybakingapp.feature.recipeDetail.DetailFragment"
+        android:label="DetailFragment">
+        <argument
+            android:name="recipeItem"
+            app:argType="com.sanmidev.mybakingapp.data.local.BakingRecipeItemEntity" />
+        <action
+            android:id="@+id/action_detailFragment_to_stepFragment"
+            app:destination="@id/stepFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/stepFragment"
+        android:name="com.sanmidev.mybakingapp.feature.recipeStep.StepFragment"
+        android:label="fragment_step"
+        tools:layout="@layout/fragment_step">
+        <argument
+            android:name="stepEntity"
+            app:argType="com.sanmidev.mybakingapp.data.local.StepEntity" />
+    </fragment>
+
+</navigation>
